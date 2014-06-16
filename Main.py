@@ -1,4 +1,11 @@
-import rooms, doors
+import re, rooms, doors
+
+def match_any(l,s):
+	for i in l:
+		match_regex = i + "\s"
+		if re.match(match_regex,s):
+			return True
+	return False
 
 # these lists contain the acceptable strings for various kinds of commands
 quit_strings = ["quit", "exit", "x", "q"]
@@ -7,6 +14,14 @@ move_strings = ["north", "south", "east", "west", "up", "down", "n", "s", "e", "
 # there is a probably a way to combine all the legal look strings and all the legal move strings
 # with a list comprehension but I can't think of it right now
 look_direction_strings = ["look north", "look south", "look east", "look west", "look up", "look down"]
+
+print "---TEST---"
+print match_any(quit_strings,"exit please"), "Should be True"
+print match_any(look_strings,"look fish"), "Should be True"
+print match_any(move_strings,"dance north"), "Should be True"
+print match_any(quit_strings,"fish"), "Should be False"
+print match_any(look_strings,"this string is gobbledegook"), "Should be False"
+print "---END TEST---"
 
 print "Welcome!"
 current_room = rooms.find_room(rooms.rooms_list,rooms.current_room)
