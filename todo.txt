@@ -1,0 +1,31 @@
+TO DO:
+
+* add three more rooms to make a basic five-room game
+* sort out parsing so that things like "look north" work in a slightly better way
+* sort out string building for room/item/door/etc names that begin with vowels
+* add items
+* add looking at/through doors depending on whether they are closed
+* add opening + closing doors
+* add moving from room to room
+* tests? learn about Python testing and make that work
+* separate text-parsing and string-building out into separate modules for readability and maintainability
+
+LATER
+
+* sort out an actual plot of some kind
+* fancy stuff like using objects for things (eg: having a doorway blocked with ivy and using garden shears to clear it?)
+* NPCs
+* health and fighting?
+* food and hunger?
+* a help system?
+
+DONE
+
+* rooms! they are rooms! with descriptions!
+* there are doors
+* you can break the while loop by quitting
+* you can look at the current room
+* the room tracks where you were last so it can show different stuff if you've moved
+* there is the ghost of functionality for moving
+* also the ghost of functionality for looking at/through doors
+* there is now a function that will match bits of strings (see to do re: parsing)
