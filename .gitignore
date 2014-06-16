@@ -1,0 +1,7 @@
+# VIM's tracking files
+
+*.swp
+
+# Byte-complied files
+
+*.pyc
