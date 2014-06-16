@@ -12,9 +12,9 @@ class Room(object):
 	def show_full_desc(self):
 		return self.show_room_name() + "\n" + self.long_desc
 
-def find_current_room(l):
+def find_room(l,s):
 	for i in l:
-		if i.name == current_room:
+		if i.name == s:
 			return i
 	return False
 
