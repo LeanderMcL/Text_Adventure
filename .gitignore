@@ -1,6 +1,7 @@
 # VIM's tracking files
 
 *.swp
+*.swo
 
 # Byte-complied files
 

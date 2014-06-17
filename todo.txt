@@ -1,6 +1,5 @@
 TO DO:
 
-* add three more rooms to make a basic five-room game
 * sort out parsing so that things like "look north" work in a slightly better way
 * sort out string building for room/item/door/etc names that begin with vowels
 * add items
@@ -29,3 +28,4 @@ DONE
 * there is the ghost of functionality for moving
 * also the ghost of functionality for looking at/through doors
 * there is now a function that will match bits of strings (see to do re: parsing)
+* add three more rooms to make a basic five-room game
