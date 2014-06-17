@@ -1,5 +1,6 @@
 TO DO:
 
+* separate game logic into separate module
 * sort out parsing so that things like "look north" work in a slightly better way
 * sort out string building for room/item/door/etc names that begin with vowels
 * add items
