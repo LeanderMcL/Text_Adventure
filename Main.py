@@ -2,9 +2,23 @@ import re, rooms, doors
 
 def match_any(l,s):
 	for i in l:
-		match_regex = i + "\s"
+		match_regex = i + "\w"
 		if re.match(match_regex,s):
 			return True
+	return False
+
+def get_argument(s):
+	split_string = s.split()
+	join_string = " "
+	argument = join_string.join(split_string[1:])
+	if len(argument) > 0:
+		return argument
+	return False
+
+def check_look_direction(s):
+	if match_any(look_strings,s):
+		direction = get_argument(s)
+		return direction
 	return False
 
 # these lists contain the acceptable strings for various kinds of commands
@@ -15,12 +29,23 @@ move_strings = ["north", "south", "east", "west", "up", "down", "n", "s", "e", "
 # with a list comprehension but I can't think of it right now
 look_direction_strings = ["look north", "look south", "look east", "look west", "look up", "look down"]
 
-print "---TEST---"
-print match_any(quit_strings,"exit please"), "Should be True"
-print match_any(look_strings,"look fish"), "Should be True"
-print match_any(move_strings,"dance north"), "Should be True"
-print match_any(quit_strings,"fish"), "Should be False"
-print match_any(look_strings,"this string is gobbledegook"), "Should be False"
+print "---TEST--- get_argument"
+print get_argument("look north"), "look north Should be north"
+print get_argument("get fish"), "get fish Should be fish"
+print get_argument("Bajorans"), "Should be False"
+print "---END TEST---"
+
+print "---TEST--- check_look_direction"
+print check_look_direction("look north"), "look north Should be north"
+print check_look_direction("l fish"), "l fish Should be fish"
+print check_look_direction("gobbledegook"), "gobbledegook Should be False"
+
+print "---TEST--- string matching"
+print match_any(quit_strings,"exit please"), "exit please Should be True"
+print match_any(look_strings,"look fish"), "look fish Should be True"
+print match_any(move_strings,"dance north"), "dance north Should be True"
+print match_any(quit_strings,"fish"), "fish Should be False"
+print match_any(look_strings,"this string is gobbledegook"), " this string is gobbledegook Should be False"
 print "---END TEST---"
 
 print "Welcome!"
