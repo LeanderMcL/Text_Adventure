@@ -18,8 +18,11 @@ def find_room(l,s):
 			return i
 	return False
 
-current_room = "courtyard"
-previous_room = ""
+def show_room():
+	if current_room == previous_room:
+		return current_room.show_room_name()
+	else:
+		return current_room.show_full_desc()
 
 courtyard = Room("courtyard","A courtyard with ivy hanging from all the walls.","You find yourself in a cool courtyard, lined with buildings on all sides. Ivy covers each of the four walls, leaving only small gaps for the doors leading into the buildings. The floor is paved with stone slabs.",{"north": "iron door", "east": "glass door", "south": "wooden door", "west": "blue door"})
 
@@ -30,3 +33,7 @@ ballroom = Room("ballroom","An empty, echoing ballroom.","This ballroom is huge.
 kitchen = Room("kitchen","A dusty kitchen.","This kitchen was probably once cosy and warm. Now, all the counter-tops are covered in a thick layer of dust. So is the wooden table which stands in the centre of the room.",{"north":"wooden door"})
 
 gardeners_alcove = Room("gardener's alcove","A gardener's alcove.","This alcove is little more than a hole in the western wall of the courtyard. A table, shoved against the back wall, is stacked with tools and gardening equipment. There is dust everywhere, and cobwebs hang from the corners of the tiny room.",{"east":"blue door"})
+
+current_room = courtyard
+previous_room = None
+

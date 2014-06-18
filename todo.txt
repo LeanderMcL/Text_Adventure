@@ -1,6 +1,5 @@
 TO DO:
 
-* separate game logic into separate module
 * sort out parsing so that things like "look north" work in a slightly better way
 * sort out string building for room/item/door/etc names that begin with vowels
 * add items
@@ -8,7 +7,19 @@ TO DO:
 * add opening + closing doors
 * add moving from room to room
 * tests? learn about Python testing and make that work
-* separate text-parsing and string-building out into separate modules for readability and maintainability
+* play with Pyparsing and see if it can help
+* sort out setting and getting of current room to make it less clumsy
+* * I think I see a way to do this, as follows:
+* * * First, set the starter room as a variable - not just its name
+* * * This means I can continue to set current_room to the object itself and not the .name attribut
+* * * When we move rooms, I can use find_room to set current_room to the object rather than its name
+* * * This is because I'm using names and not object refs to do the exits
+* * * Is this worth changing? It might be
+* * * Will it continue to be worth changing if I do this some other way than coding the individual objects in by hand?
+* * * That I don't know
+* * * In fact there's a very good reason not to do that, which is that the variable has to be declared before I set it somewhere
+* * * Which means that all the dominos will fall over if I try to do interlocking object references inside objects
+* * * So let's keep find_room, but make current_room and previous_room be the object
 
 LATER
 
@@ -30,3 +41,5 @@ DONE
 * also the ghost of functionality for looking at/through doors
 * there is now a function that will match bits of strings (see to do re: parsing)
 * add three more rooms to make a basic five-room game
+* separate game logic into separate module
+* separate text-parsing and string-building out into separate modules for readability and maintainability
