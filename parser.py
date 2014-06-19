@@ -1,4 +1,4 @@
-import pyparsing, rooms, doors
+import re, rooms, doors
 
 def match_any(l,s):
 	for i in l:
@@ -15,12 +15,6 @@ def get_argument(s):
 		return argument
 	return False
 
-def check_look_at(s):
-	if match_any(look_strings,s):
-		direction = get_argument(s)
-		return direction
-	return False
-
 def match(l,s):
 	if s in l:
 		return s
@@ -32,13 +26,33 @@ def is_quit(s):
 def is_look(s):
 	return match(look_strings,s)
 
+def is_look_with_args(s):
+	if match_any(look_strings,s):
+		return get_argument(s)
+
+def is_move(s):
+	for key in direction_map:
+		if s in direction_map[key]:
+			return key
+	return False
+
 # these lists contain the acceptable strings for various kinds of commands
 quit_strings = ["quit", "exit", "x", "q"]
 look_strings = ["l", "look"]
-move_strings = ["north", "south", "east", "west", "up", "down", "n", "s", "e", "w", "u", "d"]
+direction_map = {
+	"north": ["north", "n"],
+	"south": ["south", "s"],
+	"east": ["east", "e"],
+	"west": ["west", "w"],
+	"up": ["up", "u"],
+	"down": ["down", "d"]
+}
 
 print "---TEST---"
 print is_quit("quit"), "is_quit('quit') Should be 'quit'"
 print is_quit("look"), "is_quit('look') Should be False"
 print match(quit_strings,"quit"), "match(quit_strings,'quit'), Should be 'quit'"
 print match(quit_strings,"look"), "match(quit_strings,'look'), Should be False"
+print is_look_with_args("look north"), "is_look_with_args('look north'), Should be 'north'"
+print is_move("north"), "is_move(north), Should be 'north'"
+print is_move("n"), "is_move('n'), Should be 'north'"

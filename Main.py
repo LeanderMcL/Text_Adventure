@@ -34,5 +34,3 @@ while True:
 	print response
 	if action == "quit":
 		break
-	elif user_input in parser.move_strings:
-		print "Sorry! I know you want to move, but I can't do that yet."

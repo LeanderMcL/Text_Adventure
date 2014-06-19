@@ -20,6 +20,13 @@ TO DO:
 * * * In fact there's a very good reason not to do that, which is that the variable has to be declared before I set it somewhere
 * * * Which means that all the dominos will fall over if I try to do interlocking object references inside objects
 * * * So let's keep find_room, but make current_room and previous_room be the object
+* notes on looking in a direction
+* * I now have a guaranteed sensible direction returned from is_move, yay
+* * the next job is to check which door we want
+* * the job after that is to generate a sensible error if the door does not exist
+* * then we check whether the door is open
+* * if the door is closed, we throw out the description of the door
+* * if the door is open, we throw out the short description of the room beyond
 
 LATER
 
