@@ -30,7 +30,7 @@ while True:
 	user_input = raw_input("Enter a command: ").lower()
 	print rooms.show_room()
 	action, arguments = engine.get_action(user_input)
-	response = output.generate_response(action,arguments)
+	response = engine.do_action(action,arguments)
 	print response
 	if action == "quit":
 		break

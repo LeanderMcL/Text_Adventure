@@ -17,5 +17,5 @@ def find_door(l,s):
 
 glass_door = Door("glass door","A glass door.",{"west": "courtyard","east":"conservatory"},True,False)
 iron_door = Door("iron door","An iron door.",{"south": "courtyard","north":"ballroom"},True,True)
-wooden_door = Door("wooden door","A wooden door.",{"north":"courtyard","south":"kitchen"},True,False)
+wooden_door = Door("wooden door","A wooden door.",{"north":"courtyard","south":"kitchen"},False,False)
 blue_door = Door("blue door","A door painted in cracked blue paint.",{"north": "courtyard","south": "gardener's alcove"},True,False)
