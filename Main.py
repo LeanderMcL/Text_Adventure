@@ -22,15 +22,14 @@ print "---END TEST---"
 """
 
 print "Welcome!"
-current_room = rooms.current_room
-print current_room.show_full_desc()
+print rooms.current_room.show_full_desc()
 
 while True:
-	rooms.previous_room = current_room
+	rooms.previous_room = rooms.current_room
 	user_input = raw_input("Enter a command: ").lower()
-	print rooms.show_room()
 	action, arguments = engine.get_action(user_input)
 	response = engine.do_action(action,arguments)
 	print response
 	if action == "quit":
 		break
+	print rooms.show_room()

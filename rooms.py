@@ -10,7 +10,13 @@ class Room(object):
 	def show_room_name(self):
 		return "You are in a " + self.name + "."
 	def show_full_desc(self):
-		return self.show_room_name() + "\n" + self.long_desc
+		response = self.show_room_name() + "\n" + self.long_desc + "\n" + self.show_doors()
+		return response
+	def show_doors(self):
+		response = ""
+		for key in self.doors:
+			response = response + "There is a " + self.doors[key] + " to the " + key + ".\n"
+		return response
 
 def find_room(l,s):
 	for i in l:
@@ -37,3 +43,4 @@ gardeners_alcove = Room("gardener's alcove","A gardener's alcove.","This alcove 
 current_room = courtyard
 previous_room = None
 
+print courtyard.show_doors()

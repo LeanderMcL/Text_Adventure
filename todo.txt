@@ -1,13 +1,23 @@
 TO DO:
 
-* sort out parsing so that things like "look north" work in a slightly better way
 * sort out string building for room/item/door/etc names that begin with vowels
 * add items
 * add looking at/through doors depending on whether they are closed
 * add opening + closing doors
-* add moving from room to room
 * tests? learn about Python testing and make that work
 * play with Pyparsing and see if it can help
+
+LATER
+
+* sort out an actual plot of some kind
+* fancy stuff like using objects for things (eg: having a doorway blocked with ivy and using garden shears to clear it?)
+* NPCs
+* health and fighting?
+* food and hunger?
+* a help system?
+
+DONE
+
 * sort out setting and getting of current room to make it less clumsy
 * * I think I see a way to do this, as follows:
 * * * First, set the starter room as a variable - not just its name
@@ -27,18 +37,8 @@ TO DO:
 * * then we check whether the door is open
 * * if the door is closed, we throw out the description of the door
 * * if the door is open, we throw out the short description of the room beyond
-
-LATER
-
-* sort out an actual plot of some kind
-* fancy stuff like using objects for things (eg: having a doorway blocked with ivy and using garden shears to clear it?)
-* NPCs
-* health and fighting?
-* food and hunger?
-* a help system?
-
-DONE
-
+* sort out parsing so that things like "look north" work in a slightly better way
+* add moving from room to room
 * rooms! they are rooms! with descriptions!
 * there are doors
 * you can break the while loop by quitting
