@@ -57,8 +57,25 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(engine.do_action("look direction","west"),self.second_test_room.short_desc)
 		self.assertEqual(engine.do_action("look direction","up"),output.look_direction_error)
 		self.assertEqual(engine.do_action("move","west"),self.second_test_room.show_full_desc())
+		self.assertEqual(rooms.current_room,self.second_test_room)
 		self.assertEqual(engine.do_action("move","south"),output.move_closed_error(self.test_door.name))
 		self.assertEqual(engine.do_action("move","up"),output.move_direction_error)
+
+	def test_generate_response(self):
+		self.assertEqual(output.generate_response(None,None),output.error_no_action)
+		self.assertEqual(output.generate_response("quit",None),output.quit_message)
+		self.assertEqual(output.generate_response("look",None),output.rooms.current_room.long_desc)
+		self.assertEqual(output.generate_response("look direction closed",self.test_door),self.test_door.desc)
+		self.assertEqual(output.generate_response("look direction open",self.test_room),self.test_room.short_desc)
+		self.assertEqual(output.generate_response("look direction error",None),output.look_direction_error)
+		self.assertEqual(output.generate_response("move",self.test_room),self.test_room.show_full_desc())
+		self.assertEqual(output.generate_response("move direction error",None),output.move_direction_error)
+		self.assertEqual(output.generate_response("move closed",self.test_door),output.move_closed_error(self.test_door.name))
+		self.assertEqual(output.generate_response("garbage","garbage"),output.error_no_action)
+
+	def test_move_closed_error(self):
+		self.assertEqual(output.move_closed_error("test door"),"The test door is closed.")
+
 """
     def test_get_argument(self):
         self.assertEqual('north', get_argument("look north"), "look north Should be north")
