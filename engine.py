@@ -11,7 +11,7 @@ def get_action(s):
 		look_arguments = parser.is_look_with_args(s)
 		if parser.is_move(look_arguments):
 			action = "look direction"
-			arguments = look_arguments
+			arguments = parser.is_move(look_arguments)
 		else:
 			action = "look error"
 	elif parser.is_move(s):

@@ -1,4 +1,4 @@
-import unittest, rooms, doors
+import unittest, rooms, doors, engine, output
 
 class TestParsing(unittest.TestCase):
 	test_room = rooms.Room("test room","This is the short description of the test room.","This is the long description of the test room.",{"north":"test door","west":"second test door"})
@@ -40,6 +40,23 @@ class TestParsing(unittest.TestCase):
 
 	def test_find_door(self):
 		self.assertEqual(doors.find_door("test door"),self.test_door,"Should be able to find the test door.")
+
+	def test_get_action(self):
+		self.assertEqual(engine.get_action("fish"),(None,None),"Get action should return (None,None) for input 'fish'.")
+		self.assertEqual(engine.get_action("castle"),(None,None),"Get action should return (None,None) for input 'castle'.")
+		self.assertEqual(engine.get_action("q"),("quit",None),"Get action should return ('quit',None) for input 'q'.")
+		self.assertEqual(engine.get_action("look"),("look",None),"Get action should return ('look',None) for input 'look'.")
+		self.assertEqual(engine.get_action("look n"),("look direction","north"),"Get action should return ('look direction,'north') for input 'look n'.")
+		self.assertEqual(engine.get_action("look fish"),("look error",None),"Get action should return ('look error',None) for input 'look fish'.")
+		self.assertEqual(engine.get_action("north"),("move","north"),"Get action should return ('move','north') for input 'north'.")
+
+	def test_do_action(self):
+		rooms.current_room = self.test_room
+		self.assertEqual(engine.do_action("look direction","north"),self.test_door.desc,"Looking at a closed door should generate the door description.")
+		self.assertEqual(engine.do_action("look direction","west"),self.second_test_room.short_desc,"Looking through an open door should generate the short description of the room on the other side.")		
+		print engine.do_action("look direction","up")
+		print output.look_direction_error
+		self.assertEqual(engine.do_action("look directon","up"),output.look_direction_error,"Looking in a direction where there is no exit should generate an error message.")
 
 """
     def test_get_argument(self):
