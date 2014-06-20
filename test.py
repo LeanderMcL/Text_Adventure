@@ -1,25 +1,27 @@
-import unittest
+import unittest, rooms, doors
 
-import rooms 
 class TestParsing(unittest.TestCase):
-	test_room = rooms.Room("test room","This is the short description of a test room.","This is the long description of the test room.",{"north":"test door","west":"second test door"})
+	test_room = rooms.Room("test room","This is the short description of the test room.","This is the long description of the test room.",{"north":"test door","west":"second test door"})
+	second_test_room = rooms.Room("second test room","This is the short description of the second test room.","This is the long description of the second test room.",{"south":"test door","east":"second test door"})
+	test_door = doors.Door("test door","Describing the test door.",{"south":"test room","north":"second test room"},True,False)
+	second_test_door = doors.Door("second test door","This is the description of the second test door.",{"east":"test room","west":"second test room"},False,False)
 	def test_Room_attributes(self):
 		self.assertEqual("test room",self.test_room.name,"Test room's name should be 'test room'")
-		self.assertEqual("This is the short description of a test room.",self.test_room.short_desc,"Should spit out the short description of the test room")
+		self.assertEqual("This is the short description of the test room.",self.test_room.short_desc,"Should spit out the short description of the test room")
 		self.assertEqual("This is the long description of the test room.",self.test_room.long_desc,"Should spit out the long description of the test room")
 		self.assertEqual({"north":"test door","west":"second test door"},self.test_room.doors,"Should spit out the doors for the test room.")
 
-	def test_show_room_name(self):
+	def test_Room_show_room_name(self):
 		self.assertEqual("You are in a test room.",self.test_room.show_room_name(),"Should be 'You are in a test room.'")
 
-	def test_show_full_desc(self):
+	def test_Room_show_full_desc(self):
 		self.assertEqual(self.test_room.show_room_name() + "\n" + self.test_room.long_desc + "\n" + self.test_room.show_doors(),self.test_room.show_full_desc(),"Should show the full description of the room.")
 
-	def test_show_doors(self):
+	def test_Room_show_doors(self):
 		self.assertTrue("There is a test door to the north." in self.test_room.show_doors(),"North exit should show up in show_doors.")
 
 	def test_find_room(self):
-		self.assertEqual(rooms.find_room(rooms.rooms_list,"test room"),self.test_room,"Should be able to find test room.")
+		self.assertEqual(rooms.find_room("test room"),self.test_room,"Should be able to find test room.")
 
 	def test_show_room(self):
 		rooms.current_room = self.test_room
@@ -28,6 +30,16 @@ class TestParsing(unittest.TestCase):
 		rooms.previous_room = rooms.current_room
 		self.assertTrue(rooms.current_room == rooms.previous_room,"Current room and previous room should be equal after reassignment.")
 		self.assertEqual(rooms.show_room(),self.test_room.show_room_name(),"Should show only the room name while current room and previous room are equal.")
+
+	def test_Door_attributes(self):
+		self.assertEqual(self.test_door.name,"test door","Should spit out the name of the test door.")
+		self.assertEqual(self.test_door.desc,"Describing the test door.","Should spit out the description of the test door.")
+		self.assertEqual(self.test_door.exits,{"south":"test room","north":"second test room"},"Should spit out the exits for the test door.")
+		self.assertEqual(self.test_door.closed,True,"The test door should be closed.")
+		self.assertEqual(self.test_door.locked,False,"The test door should not be locked.")
+
+	def test_find_door(self):
+		self.assertEqual(doors.find_door("test door"),self.test_door,"Should be able to find the test door.")
 
 """
     def test_get_argument(self):

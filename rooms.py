@@ -18,8 +18,8 @@ class Room(object):
 			response = response + "There is a " + self.doors[key] + " to the " + key + ".\n"
 		return response
 
-def find_room(l,s):
-	for i in l:
+def find_room(s):
+	for i in rooms_list:
 		if i.name == s:
 			return i
 	return False

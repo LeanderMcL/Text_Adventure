@@ -9,8 +9,8 @@ class Door(object):
 		self.locked = locked
 		doors_list.append(self)
 
-def find_door(l,s):
-	for i in l:
+def find_door(s):
+	for i in doors_list:
 		if i.name == s:
 			return i
 	return False
@@ -18,4 +18,4 @@ def find_door(l,s):
 glass_door = Door("glass door","A glass door.",{"west": "courtyard","east":"conservatory"},True,False)
 iron_door = Door("iron door","An iron door.",{"south": "courtyard","north":"ballroom"},True,True)
 wooden_door = Door("wooden door","A wooden door.",{"north":"courtyard","south":"kitchen"},False,False)
-blue_door = Door("blue door","A door painted in cracked blue paint.",{"north": "courtyard","south": "gardener's alcove"},True,False)
+blue_door = Door("blue door","A door painted in cracked blue paint.",{"east": "courtyard","west": "gardener's alcove"},True,False)
