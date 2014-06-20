@@ -1,6 +1,6 @@
-import re, rooms, doors, engine, output, parser
+import rooms, doors, engine, output, parser
 
-def main:
+def main():
 	print "Welcome!"
 	print rooms.current_room.show_full_desc()
 

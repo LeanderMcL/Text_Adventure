@@ -42,5 +42,3 @@ gardeners_alcove = Room("gardener's alcove","A gardener's alcove.","This alcove 
 
 current_room = courtyard
 previous_room = None
-
-print courtyard.show_doors()

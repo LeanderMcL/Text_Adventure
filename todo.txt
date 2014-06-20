@@ -5,6 +5,7 @@ TO DO:
 * add opening + closing doors
 * tests? learn about Python testing and make that work
 * play with Pyparsing and see if it can help
+* print exits on request
 
 LATER
 
