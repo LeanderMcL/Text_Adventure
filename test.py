@@ -1,4 +1,4 @@
-import unittest, rooms, doors, engine, output
+import unittest, rooms, doors, engine, output, parser
 
 class TestParsing(unittest.TestCase):
 
@@ -76,24 +76,34 @@ class TestParsing(unittest.TestCase):
 	def test_move_closed_error(self):
 		self.assertEqual(output.move_closed_error("test door"),"The test door is closed.")
 
-"""
-    def test_get_argument(self):
-        self.assertEqual('north', get_argument("look north"), "look north Should be north")
-        self.assertEqual('fish', get_argument("get fish"), "get fish Should be fish")
-        self.assertEqual(False, get_argument("Bajorans"), "Should be False")
+	def test_match_any(self):
+		self.assertEqual(parser.match_any(parser.look_strings,"look east"),True)
+		self.assertEqual(parser.match_any(parser.quit_strings,"look east"),False)
 
-    def test_check_look_direction(self):
-        self.assertEqual('north', check_look_direction("look north"), "look north Should be north")
-        self.assertEqual('fish', check_look_direction("l fish"), "l fish Should be fish")
-        self.assertEqual(False, check_look_direction("gobbledegook"), "gobbledegook Should be False")
+	def test_get_argument(self):
+		self.assertEqual(parser.get_argument("look north"),"north")
+		self.assertEqual(parser.get_argument("get fish"),"fish")
+		self.assertEqual(parser.get_argument("Bajorans"),False)
 
-    def test_string_matching(self):
-        self.assertEqual(True, match_any(quit_strings,"exit please"), "exit please Should be True")
-        self.assertEqual(True, match_any(look_strings,"look fish"), "look fish Should be True")
-        self.assertEqual(True, match_any(move_strings,"dance north"), "dance north Should be True")
-        self.assertEqual(False, match_any(quit_strings,"fish"), "fish Should be False")
-        self.assertEqual(False, match_any(look_strings,"this string is gobbledegook"), " this string is gobbledegook Should be False")
-"""
-if __name__ == '__main__':
-    unittest.main()
+	def test_match(self):
+		self.assertEqual(parser.match(parser.look_strings,"l"),"l")
+		self.assertEqual(parser.match(parser.look_strings,"q"),False)
 
+	def test_is_quit(self):
+		self.assertEqual(parser.is_quit("quit"),"quit")
+		self.assertEqual(parser.is_quit("q"),"q")
+		self.assertEqual(parser.is_quit("look"),False)
+
+	def test_is_look(self):
+		self.assertEqual(parser.is_look("look"),"look")
+		self.assertEqual(parser.is_look("l"),"l")
+		self.assertEqual(parser.is_look("north"),False)
+
+	def test_is_move(self):
+		self.assertEqual(parser.is_move("north"),"north")
+		self.assertEqual(parser.is_move("e"),"east")
+		self.assertEqual(parser.is_move("gobbledegook"),False)
+
+if __name__ == "__main__":
+	unittest.main()
+	

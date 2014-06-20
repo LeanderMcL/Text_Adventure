@@ -47,13 +47,3 @@ direction_map = {
 	"up": ["up", "u"],
 	"down": ["down", "d"]
 }
-
-print "---TEST---"
-print is_quit("quit"), "is_quit('quit') Should be 'quit'"
-print is_quit("look"), "is_quit('look') Should be False"
-print match(quit_strings,"quit"), "match(quit_strings,'quit'), Should be 'quit'"
-print match(quit_strings,"look"), "match(quit_strings,'look'), Should be False"
-print is_look_with_args("look north"), "is_look_with_args('look north'), Should be 'north'"
-print is_move("north"), "is_move(north), Should be 'north'"
-print is_move("n"), "is_move('n'), Should be 'north'"
-print is_move("e"), "is_move('e'), Should be 'east'"
