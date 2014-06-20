@@ -1,14 +1,9 @@
 import rooms, doors, engine, output, parser
 
 def main():
-	print "Welcome!"
-	print rooms.current_room.show_full_desc()
-
+	print engine.game_intro()
 	while True:
-		rooms.previous_room = rooms.current_room
-		user_input = raw_input("Enter a command: ").lower()
-		action, arguments = engine.get_action(user_input)
-		response = engine.do_action(action,arguments)
+		response, action = engine.game_cycle(engine.get_input)
 		print response
 		if action == "quit":
 			break

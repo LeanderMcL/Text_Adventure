@@ -3,7 +3,6 @@ TO DO:
 * sort out string building for room/item/door/etc names that begin with vowels
 * add items
 * add opening + closing doors
-* tests? learn about Python testing and make that work
 * play with Pyparsing and see if it can help
 * print exits on request
 
@@ -18,6 +17,7 @@ LATER
 
 DONE
 
+* tests? learn about Python testing and make that work
 * add looking at/through doors depending on whether they are closed
 * sort out setting and getting of current room to make it less clumsy
 * * I think I see a way to do this, as follows:

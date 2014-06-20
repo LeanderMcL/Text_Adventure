@@ -49,3 +49,22 @@ def do_action(action,arguments):
 			action = "move direction error"
 	response = output.generate_response(action,arguments)
 	return response
+
+def get_input():
+	user_input = raw_input(output.prompt).lower()
+	return user_input
+
+def total_action(s):
+	action, arguments = get_action(s)
+	response = do_action(action,arguments)
+	return response, action
+
+def game_cycle(input_function):
+	rooms.previous_room = rooms.current_room
+	user_input = input_function()
+	response, action = total_action(user_input)
+	return response, action
+
+def game_intro():
+	intro = output.welcome + "\n" + rooms.current_room.show_full_desc()
+	return intro
