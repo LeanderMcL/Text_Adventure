@@ -1,9 +1,9 @@
-import re, rooms, doors
+import rooms, doors
 
 def match_any(l,s):
-	for i in l:
-		match_regex = i + "\w"
-		if re.match(match_regex,s):
+	split = s.split()
+	for i in split:
+		if i in l:
 			return True
 	return False
 
@@ -29,6 +29,7 @@ def is_look(s):
 def is_look_with_args(s):
 	if match_any(look_strings,s):
 		return get_argument(s)
+	return False
 
 def is_move(s):
 	for key in direction_map:

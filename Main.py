@@ -1,4 +1,4 @@
-import rooms, doors, engine, output, parser
+import engine, rooms
 
 def main():
 	print engine.game_intro()

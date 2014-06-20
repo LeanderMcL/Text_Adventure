@@ -58,6 +58,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(engine.get_action("q"),("quit",None))
 		self.assertEqual(engine.get_action("look"),("look",None))
 		self.assertEqual(engine.get_action("look n"),("look direction","north"))
+		self.assertEqual(engine.get_action("l n"),("look direction","north"))
 		self.assertEqual(engine.get_action("look fish"),("look error",None))
 		self.assertEqual(engine.get_action("north"),("move","north"))
 
@@ -125,6 +126,8 @@ class TestParsing(unittest.TestCase):
 	def test_match_any(self):
 		self.assertEqual(parser.match_any(parser.look_strings,"look east"),True)
 		self.assertEqual(parser.match_any(parser.quit_strings,"look east"),False)
+		self.assertEqual(parser.match_any(parser.look_strings,"l east"),True)
+		self.assertEqual(parser.match_any(parser.quit_strings,"l east"),False)
 
 	def test_get_argument(self):
 		self.assertEqual(parser.get_argument("look north"),"north")
@@ -148,6 +151,11 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(parser.is_look("l"),"l")
 		self.assertEqual(parser.is_look("north"),False)
 		self.assertEqual(parser.is_look(""),False)
+
+	def test_is_look_with_args(self):
+		self.assertEqual(parser.is_look_with_args("look args"),"args")
+		self.assertEqual(parser.is_look_with_args("l args"),"args")
+		self.assertEqual(parser.is_look_with_args("l east"),"east")
 
 	def test_is_move(self):
 		self.assertEqual(parser.is_move("north"),"north")
