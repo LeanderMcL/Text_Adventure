@@ -17,7 +17,7 @@ def generate_response(action,arguments):
 	elif action == "move direction error":
 		response = move_direction_error
 	elif action == "move closed":
-		response = move_closed_error(arguments)
+		response = move_closed_error(arguments.name)
 	return response
 
 error_no_action = "I have no idea what you're talking about."

@@ -1,63 +1,64 @@
 import unittest, rooms, doors, engine, output
 
 class TestParsing(unittest.TestCase):
+
 	test_room = rooms.Room("test room","This is the short description of the test room.","This is the long description of the test room.",{"north":"test door","west":"second test door"})
 	second_test_room = rooms.Room("second test room","This is the short description of the second test room.","This is the long description of the second test room.",{"south":"test door","east":"second test door"})
 	test_door = doors.Door("test door","Describing the test door.",{"south":"test room","north":"second test room"},True,False)
 	second_test_door = doors.Door("second test door","This is the description of the second test door.",{"east":"test room","west":"second test room"},False,False)
+
 	def test_Room_attributes(self):
 		self.assertEqual("test room",self.test_room.name,"Test room's name should be 'test room'")
-		self.assertEqual("This is the short description of the test room.",self.test_room.short_desc,"Should spit out the short description of the test room")
-		self.assertEqual("This is the long description of the test room.",self.test_room.long_desc,"Should spit out the long description of the test room")
-		self.assertEqual({"north":"test door","west":"second test door"},self.test_room.doors,"Should spit out the doors for the test room.")
+		self.assertEqual("This is the short description of the test room.",self.test_room.short_desc)
+		self.assertEqual("This is the long description of the test room.",self.test_room.long_desc)
+		self.assertEqual({"north":"test door","west":"second test door"},self.test_room.doors)
 
 	def test_Room_show_room_name(self):
-		self.assertEqual("You are in a test room.",self.test_room.show_room_name(),"Should be 'You are in a test room.'")
+		self.assertEqual("You are in a test room.",self.test_room.show_room_name())
 
 	def test_Room_show_full_desc(self):
-		self.assertEqual(self.test_room.show_room_name() + "\n" + self.test_room.long_desc + "\n" + self.test_room.show_doors(),self.test_room.show_full_desc(),"Should show the full description of the room.")
+		self.assertEqual(self.test_room.show_room_name() + "\n" + self.test_room.long_desc + "\n" + self.test_room.show_doors(),self.test_room.show_full_desc())
 
 	def test_Room_show_doors(self):
-		self.assertTrue("There is a test door to the north." in self.test_room.show_doors(),"North exit should show up in show_doors.")
+		self.assertTrue("There is a test door to the north." in self.test_room.show_doors())
 
 	def test_find_room(self):
-		self.assertEqual(rooms.find_room("test room"),self.test_room,"Should be able to find test room.")
+		self.assertEqual(rooms.find_room("test room"),self.test_room)
 
 	def test_show_room(self):
-		rooms.current_room = self.test_room
-		self.assertNotEqual(rooms.previous_room,rooms.current_room,"Previous room and current room should be unequal before assignment")
-		self.assertEqual(rooms.show_room(),self.test_room.show_full_desc(),"Should show full description of room while current room and previous room are unequal.")
+		self.assertNotEqual(rooms.previous_room,rooms.current_room)
+		self.assertEqual(rooms.show_room(),rooms.current_room.show_full_desc())
 		rooms.previous_room = rooms.current_room
-		self.assertTrue(rooms.current_room == rooms.previous_room,"Current room and previous room should be equal after reassignment.")
-		self.assertEqual(rooms.show_room(),self.test_room.show_room_name(),"Should show only the room name while current room and previous room are equal.")
+		self.assertTrue(rooms.current_room == rooms.previous_room)
+		self.assertEqual(rooms.show_room(),rooms.current_room.show_room_name())
 
 	def test_Door_attributes(self):
-		self.assertEqual(self.test_door.name,"test door","Should spit out the name of the test door.")
-		self.assertEqual(self.test_door.desc,"Describing the test door.","Should spit out the description of the test door.")
-		self.assertEqual(self.test_door.exits,{"south":"test room","north":"second test room"},"Should spit out the exits for the test door.")
-		self.assertEqual(self.test_door.closed,True,"The test door should be closed.")
-		self.assertEqual(self.test_door.locked,False,"The test door should not be locked.")
+		self.assertEqual(self.test_door.name,"test door")
+		self.assertEqual(self.test_door.desc,"Describing the test door.")
+		self.assertEqual(self.test_door.exits,{"south":"test room","north":"second test room"})
+		self.assertEqual(self.test_door.closed,True)
+		self.assertEqual(self.test_door.locked,False)
 
 	def test_find_door(self):
-		self.assertEqual(doors.find_door("test door"),self.test_door,"Should be able to find the test door.")
+		self.assertEqual(doors.find_door("test door"),self.test_door)
 
 	def test_get_action(self):
-		self.assertEqual(engine.get_action("fish"),(None,None),"Get action should return (None,None) for input 'fish'.")
-		self.assertEqual(engine.get_action("castle"),(None,None),"Get action should return (None,None) for input 'castle'.")
-		self.assertEqual(engine.get_action("q"),("quit",None),"Get action should return ('quit',None) for input 'q'.")
-		self.assertEqual(engine.get_action("look"),("look",None),"Get action should return ('look',None) for input 'look'.")
-		self.assertEqual(engine.get_action("look n"),("look direction","north"),"Get action should return ('look direction,'north') for input 'look n'.")
-		self.assertEqual(engine.get_action("look fish"),("look error",None),"Get action should return ('look error',None) for input 'look fish'.")
-		self.assertEqual(engine.get_action("north"),("move","north"),"Get action should return ('move','north') for input 'north'.")
+		self.assertEqual(engine.get_action("fish"),(None,None))
+		self.assertEqual(engine.get_action("castle"),(None,None))
+		self.assertEqual(engine.get_action("q"),("quit",None))
+		self.assertEqual(engine.get_action("look"),("look",None))
+		self.assertEqual(engine.get_action("look n"),("look direction","north"))
+		self.assertEqual(engine.get_action("look fish"),("look error",None))
+		self.assertEqual(engine.get_action("north"),("move","north"))
 
 	def test_do_action(self):
 		rooms.current_room = self.test_room
-		self.assertEqual(engine.do_action("look direction","north"),self.test_door.desc,"Looking at a closed door should generate the door description.")
-		self.assertEqual(engine.do_action("look direction","west"),self.second_test_room.short_desc,"Looking through an open door should generate the short description of the room on the other side.")		
-		print engine.do_action("look direction","up")
-		print output.look_direction_error
-		self.assertEqual(engine.do_action("look directon","up"),output.look_direction_error,"Looking in a direction where there is no exit should generate an error message.")
-
+		self.assertEqual(engine.do_action("look direction","north"),self.test_door.desc)
+		self.assertEqual(engine.do_action("look direction","west"),self.second_test_room.short_desc)
+		self.assertEqual(engine.do_action("look direction","up"),output.look_direction_error)
+		self.assertEqual(engine.do_action("move","west"),self.second_test_room.show_full_desc())
+		self.assertEqual(engine.do_action("move","south"),output.move_closed_error(self.test_door.name))
+		self.assertEqual(engine.do_action("move","up"),output.move_direction_error)
 """
     def test_get_argument(self):
         self.assertEqual('north', get_argument("look north"), "look north Should be north")
