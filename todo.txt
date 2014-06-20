@@ -17,6 +17,7 @@ LATER
 
 DONE
 
+* generate a slightly better message if you can't look at that thing you wanted to look at
 * tests? learn about Python testing and make that work
 * add looking at/through doors depending on whether they are closed
 * sort out setting and getting of current room to make it less clumsy

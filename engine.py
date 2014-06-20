@@ -14,6 +14,7 @@ def get_action(s):
 			arguments = parser.is_move(look_arguments)
 		else:
 			action = "look error"
+			arguments = look_arguments
 	elif parser.is_move(s):
 		action = "move"
 		arguments = parser.is_move(s)

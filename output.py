@@ -13,7 +13,7 @@ def generate_response(action,arguments):
 	elif action == "look direction error":
 		response = look_direction_error
 	elif action == "look error":
-		response = look_error
+		response = look_error(arguments)
 	elif action == "move":
 		response = arguments.show_full_desc()
 	elif action == "move direction error":
@@ -24,7 +24,6 @@ def generate_response(action,arguments):
 
 error_no_action = "I have no idea what you're talking about."
 quit_message = "Thanks for playing!\nGoodbye!"
-look_error = "You can't look at that!"
 look_direction_error = "There's nothing to look at in that direction."
 move_direction_error = "You can't go that way."
 welcome = "Welcome!"
@@ -32,4 +31,8 @@ prompt = "Enter a command: "
 
 def move_closed_error(s):
 	response = "The %s is closed." % s
+	return response
+
+def look_error(s):
+	response = "I don't see a %s around here." % s
 	return response

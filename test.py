@@ -59,7 +59,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(engine.get_action("look"),("look",None))
 		self.assertEqual(engine.get_action("look n"),("look direction","north"))
 		self.assertEqual(engine.get_action("l n"),("look direction","north"))
-		self.assertEqual(engine.get_action("look fish"),("look error",None))
+		self.assertEqual(engine.get_action("look fish"),("look error","fish"))
 		self.assertEqual(engine.get_action("north"),("move","north"))
 
 	def test_do_action(self):
@@ -71,6 +71,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(rooms.current_room,self.second_test_room)
 		self.assertEqual(engine.do_action("move","south"),output.move_closed_error(self.test_door.name))
 		self.assertEqual(engine.do_action("move","up"),output.move_direction_error)
+		self.assertEqual(engine.do_action("look error","fish"),output.look_error("fish"))
 
 # NB: Not bothering to test get_input(), which only grabs the string from raw_input()
 
@@ -84,7 +85,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(engine.total_action("look south"),(self.test_door.desc,"look direction"))
 		self.assertEqual(engine.total_action("look north"),(output.look_direction_error,"look direction"))
 		self.assertEqual(engine.total_action("look east"),(self.test_room.short_desc,"look direction"))
-		self.assertEqual(engine.total_action("look fish"),(output.look_error,"look error"))
+		self.assertEqual(engine.total_action("look fish"),(output.look_error("fish"),"look error"))
 		self.assertEqual(engine.total_action(""),(output.error_no_action,None))
 
 	def test_game_cycle(self):
@@ -97,7 +98,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(engine.game_cycle(lambda:"look south"),(self.test_door.desc,"look direction"))
 		self.assertEqual(engine.game_cycle(lambda:"look north"),(output.look_direction_error,"look direction"))
 		self.assertEqual(engine.game_cycle(lambda:"look east"),(self.test_room.short_desc,"look direction"))
-		self.assertEqual(engine.game_cycle(lambda:"look fish"),(output.look_error,"look error"))
+		self.assertEqual(engine.game_cycle(lambda:"look fish"),(output.look_error("fish"),"look error"))
 		self.assertEqual(engine.game_cycle(lambda:""),(output.error_no_action,None))
 
 	def test_game_intro(self):
@@ -112,7 +113,7 @@ class TestParsing(unittest.TestCase):
 		self.assertEqual(output.generate_response("look direction closed",self.test_door),self.test_door.desc)
 		self.assertEqual(output.generate_response("look direction open",self.test_room),self.test_room.short_desc)
 		self.assertEqual(output.generate_response("look direction error",None),output.look_direction_error)
-		self.assertEqual(output.generate_response("look error",None),output.look_error)
+		self.assertEqual(output.generate_response("look error","fish"),output.look_error("fish"))
 		self.assertEqual(output.generate_response("move",self.test_room),self.test_room.show_full_desc())
 		self.assertEqual(output.generate_response("move direction error",None),output.move_direction_error)
 		self.assertEqual(output.generate_response("move closed",self.test_door),output.move_closed_error(self.test_door.name))
